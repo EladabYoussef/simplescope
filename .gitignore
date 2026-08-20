@@ -1,0 +1,12 @@
+# Build output
+Debug/
+Release/
+
+# Generated binaries
+*.elf
+*.hex
+*.bin
+*.map
+
+# STM32CubeIDE temporary files
+*.launch

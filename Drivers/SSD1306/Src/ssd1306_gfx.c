@@ -1,5 +1,5 @@
 #include "ssd1306_gfx.h"
-#include "fonts.h"
+#include <string.h>
 
 uint8_t FRAME_BUFFER[OLED_H][OLED_W / 8];
 uint8_t SSD_FRAME_BUFFER[PAGES_NUMBER][OLED_W];
@@ -60,35 +60,36 @@ uint8_t draw_bitmap(uint8_t x, uint8_t y, uint8_t width, uint8_t height, const u
     return SSD1306_OK;
 }
 
-uint8_t draw_text(uint8_t x, uint8_t y, char* str, size_t length, uint8_t font_size) {
-    if((x+font_size) > OLED_W || (y+font_size) > OLED_H) return SSD1306_ERR_CLIPPED;
-    
-    const uint8_t *font_data = NULL;
+uint8_t draw_text(uint8_t x, uint8_t y, char* str, size_t length, font_id_t font_id) {
+    if (font_id >= FONT_COUNT) return SSD1306_ERR_INVALID_CHAR;
 
-    uint16_t bytes_per_char = bitmap_bytes(font_size, font_size);
+    const font_t *font = &font_cga_16;
+    uint8_t font_width = font->byte_width * 8;
+    uint16_t bytes_per_char = bitmap_bytes(font_width, font->height);
+    if((x+font_width) > OLED_W || (y+font->height) > OLED_H) return SSD1306_ERR_CLIPPED;
+
     uint8_t runningX = x;
     uint8_t runningY = y;
     uint8_t flag = SSD1306_OK;
-    switch (font_size) {
-        default:
-            font_data = CGA_16x16;
-    }
     for(size_t i = 0; i < length; i++) {
-        if (str[i] < ' ' || str[i] > '~') {
+        if (str[i] < font->lochar || str[i] > font->hichar) {
             flag |= SSD1306_ERR_INVALID_CHAR;
             continue;
         }
-        uint32_t index = (uint32_t)bytes_per_char * (uint32_t)(str[i] - ' ');
-        if((runningX + font_size) > OLED_W) {
+        uint32_t index = (uint32_t)bytes_per_char * (uint32_t)(str[i] - font->lochar);
+        if((runningX + font_width) > OLED_W) {
             runningX = x;
-            runningY += font_size;
+            runningY += font->height;
         }
-        if((runningY+font_size) > OLED_H) {
+        if((runningY+font->height) > OLED_H) {
             flag |= SSD1306_ERR_CLIPPED;
             return flag;
         }
-        flag |= draw_bitmap(runningX, runningY, font_size, font_size, &font_data[index]);
-        runningX += font_size;
+        flag |= draw_bitmap(runningX, runningY, font_width, font->height, &font->data[index]);
+        runningX += font_width;
     }
     return flag;
+}
+void clear_frame_buffer(void) {
+    memset(FRAME_BUFFER, 0, sizeof(FRAME_BUFFER));
 }

@@ -70,7 +70,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-
+  i2c1_handle = &hi2c1;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/

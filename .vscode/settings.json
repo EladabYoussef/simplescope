@@ -6,6 +6,16 @@
     "cmake.preferredGenerators": [
         "Ninja"
     ],
+    "cmake.buildBeforeRun": true,
+    "cmake.launchTargetPath": "/home/nidhogg/.local/share/stm32cube/bundles/programmer/2.23.0/bin/STM32_Programmer_CLI",
+    "cmake.launchTargetArgs": [
+        "-c",
+        "port=SWD",
+        "-w",
+        "${workspaceFolder}/build/Debug/simplescope.elf",
+        "-v",
+        "-rst"
+    ],
     "stm32cube-ide-clangd.path": "cube",
     "stm32cube-ide-clangd.arguments": [
         "starm-clangd",

@@ -10,3 +10,4 @@ Release/
 
 # STM32CubeIDE temporary files
 *.launch
+.vscode/

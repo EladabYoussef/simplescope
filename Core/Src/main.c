@@ -19,10 +19,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usb_host.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ssd1306_hal.h"
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -94,7 +94,13 @@ int main(void)
   MX_I2C1_Init();
   MX_USB_HOST_Init();
   /* USER CODE BEGIN 2 */
-
+  if (ssd1306_init() != HAL_OK) {
+    Error_Handler();
+  }
+  char text[] = "The One piece is real!";
+  clear_frame_buffer();
+  draw_text(0, 0, text, strlen(text), FONT_CGA_16);
+  ssd1306_update_screen();
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -68,7 +68,8 @@ HAL_StatusTypeDef ssd1306_write_cmd(uint8_t cmd) {
     if (i2c1_handle == NULL) {
         return HAL_ERROR;
     }
-    return HAL_I2C_Master_Transmit(i2c1_handle, SSD1306_ADDRESS, &cmd, 1, ssd1306_i2c_timeout_ms);
+    uint8_t buffer[] = {SSD1306_CMD_CONTROL_BYTE, cmd};
+    return HAL_I2C_Master_Transmit(i2c1_handle, SSD1306_ADDRESS, buffer, sizeof(buffer), ssd1306_i2c_timeout_ms);
 }
 
 HAL_StatusTypeDef ssd1306_write_data(uint8_t *data, size_t length) {

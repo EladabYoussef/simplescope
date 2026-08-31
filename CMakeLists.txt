@@ -46,6 +46,10 @@ target_link_directories(${CMAKE_PROJECT_NAME} PRIVATE
 # Add sources to executable
 target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/Src/aquisition.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/Src/channels.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/Src/communication.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/Src/display.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/SSD1306/Src/ssd1306_hal.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/SSD1306/Src/ssd1306_gfx.c
     Drivers/SSD1306/Inc/fonts.h
@@ -54,6 +58,7 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
 # Add include paths
 target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined include paths
+    ${CMAKE_CURRENT_SOURCE_DIR}/app/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/SSD1306/Inc
 )
 

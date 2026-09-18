@@ -1,7 +1,6 @@
 #pragma once
 
 #include <stdbool.h>
-#include <stdint.h>
 #include "config.h"
 
 #define PACKET_MAX_SAMPLES SAMPLES_PER_CHANNEL

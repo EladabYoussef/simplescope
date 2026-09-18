@@ -1,6 +1,5 @@
 #pragma once
 
-#include <stdint.h>
 #include "ssd1306_gfx.h"
 #include "config.h"
 

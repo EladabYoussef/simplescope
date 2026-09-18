@@ -1,6 +1,8 @@
 # SimpleScope
 
-A dual-channel oscilloscope implementation for STM32F407 microcontroller with real-time data acquisition and display.
+A dual-channel oscilloscope project for the STM32F407 microcontroller. The repository currently contains the hardware foundation and application interfaces for real-time acquisition, channel selection, and communication; those application modules are still being implemented.
+
+For a detailed refresher on the architecture, hardware data path, current status, and next implementation steps, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Architecture Overview
 
@@ -13,24 +15,24 @@ A dual-channel oscilloscope implementation for STM32F407 microcontroller with re
 The main application logic is implemented in the app folder and integrated into the system via `Core/Src/main.c`.
 
 - **Scope App** (`scope_app.h/c`)
-  - Main application orchestration
-  - Task coordination and state management
+  - Intended application orchestration
+  - Currently an empty public interface/source scaffold
 
 - **Acquisition** (`aquisition.h/c`)
-  - Dual-channel ADC sampling with DMA
-  - Timer-triggered acquisition
+  - Intended dual-channel ADC sampling with DMA
+  - Header defines the shared buffer and half/full transfer callbacks; source is currently empty
 
 - **Channels** (`channels.h/c`)
-  - Per-channel ring buffer management
-  - Decouples high-speed sampling from consumer tasks
+  - Intended channel selection and button/LED state
+  - Header defines channel objects and callbacks; source is currently empty
 
 - **Display** (`display.h/c`)
-  - SSD1306 OLED display control
-  - Shows selected channel data
+  - Reserved for OLED integration
+  - Deliberately not documented in detail for now
 
 - **Communication** (`communication.h/c`)
-  - Data streaming to PC
-  - Protocol handling
+  - Intended sample packet creation and transport
+  - Header defines the packet shape and API; source is currently empty
 
 - **Configuration** (`config.h`)
   - Application-wide configuration constants
@@ -60,13 +62,7 @@ The main application logic is implemented in the app folder and integrated into 
 
 ## Current Implementation Status
 
-The following modules are scaffolded and ready for implementation:
-- ADC acquisition framework
-- Ring buffer channel management
-- Display driver integration
-- Communication interface
-- Button/UI input handling
-- System configuration
+The STM32/CubeMX foundation, peripheral setup, USB host middleware, and application headers are present. ADC DMA callbacks, timer-triggered sampling, channel logic, packet transport, and application orchestration still need implementation. See [ARCHITECTURE.md](ARCHITECTURE.md) for the detailed checklist.
 
 ## Build System
 

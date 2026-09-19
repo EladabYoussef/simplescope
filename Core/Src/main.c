@@ -23,6 +23,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "ssd1306_hal.h"
+#include "communication.h"
 #include "acquisition.h"
 #include <string.h>
 /* USER CODE END Includes */
@@ -83,6 +84,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+  uart2_handle = &huart2;
   i2c1_handle = &hi2c1;
   adc1_handle = &hadc1;
   /* USER CODE END 1 */

@@ -7,10 +7,21 @@ typedef enum {
     NO_CHANNEL_SELECTED,
     CHANNEL_1,
     CHANNEL_2
-} selected_channel_t;
+} selected_channel_e;
 
 typedef enum {
     NO_TRANSFER,
     FIRST_HALF_TRANSFER,
     SECOND_HALF_TRANSFER
-}buffer_half_transfer_t;
+} buffer_half_transfer_e;
+
+typedef enum {
+    PACKET_OK,
+    PACKET_ERROR
+} packet_status_e;
+
+typedef enum {
+    INVALID_PACKET_ERROR,
+    TRANSMIT_OK,
+    TRANSMIT_ERROR
+} transmit_status_e;

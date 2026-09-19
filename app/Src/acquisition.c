@@ -27,4 +27,3 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc)
 {
     acquisition_on_dma_complete(hadc);
 }
-

@@ -57,18 +57,6 @@ The main application logic is implemented in the app folder and integrated into 
 - **Acquisition**: Dual ADC channels with DMA
 - **Communication**: USB Host support
 
-## Tests
-
-Run the display unit test on the host:
-
-```bash
-gcc -std=c11 -Wall -Wextra -Werror \
-  -Itests/host -Iapp/Inc -IDrivers/SSD1306/Inc \
-  tests/test_display.c app/Src/display.c \
-  Drivers/SSD1306/Src/ssd1306_gfx.c Drivers/SSD1306/Src/fonts.c \
-  -o /tmp/test_display && /tmp/test_display
-```
-
 ## Build System
 
 - **CMake** 3.22+

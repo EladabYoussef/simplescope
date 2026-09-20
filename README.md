@@ -1,6 +1,6 @@
 # SimpleScope
 
-A dual-channel oscilloscope project for the STM32F407 microcontroller. The repository currently contains the hardware foundation and application interfaces for real-time acquisition, channel selection, and communication; those application modules are still being implemented.
+A dual-channel oscilloscope project for the STM32F407 microcontroller. It acquires interleaved ADC samples, selects channels, renders waveforms on an SSD1306 OLED, and prepares sample packets for transmission.
 
 For a detailed refresher on the architecture, hardware data path, current status, and next implementation steps, see [ARCHITECTURE.md](ARCHITECTURE.md).
 
@@ -15,24 +15,21 @@ For a detailed refresher on the architecture, hardware data path, current status
 The main application logic is implemented in the app folder and integrated into the system via `Core/Src/main.c`.
 
 - **Scope App** (`scope_app.h/c`)
-  - Intended application orchestration
-  - Currently an empty public interface/source scaffold
+  - Reserved for application orchestration
 
-- **Acquisition** (`aquisition.h/c`)
-  - Intended dual-channel ADC sampling with DMA
-  - Header defines the shared buffer and half/full transfer callbacks; source is currently empty
+- **Acquisition** (`acquisition.h/c`)
+  - Shared dual-channel ADC DMA buffer
+  - Half/full transfer callbacks
 
 - **Channels** (`channels.h/c`)
-  - Intended channel selection and button/LED state
-  - Header defines channel objects and callbacks; source is currently empty
+  - Channel selection and button/LED state
 
 - **Display** (`display.h/c`)
-  - Reserved for OLED integration
-  - Deliberately not documented in detail for now
+  - Renders selected interleaved ADC samples into the framebuffer
+  - Updates the SSD1306 display
 
 - **Communication** (`communication.h/c`)
-  - Intended sample packet creation and transport
-  - Header defines the packet shape and API; source is currently empty
+  - Creates and transmits validated sample packets
 
 - **Configuration** (`config.h`)
   - Application-wide configuration constants
@@ -60,9 +57,17 @@ The main application logic is implemented in the app folder and integrated into 
 - **Acquisition**: Dual ADC channels with DMA
 - **Communication**: USB Host support
 
-## Current Implementation Status
+## Tests
 
-The STM32/CubeMX foundation, peripheral setup, USB host middleware, and application headers are present. ADC DMA callbacks, timer-triggered sampling, channel logic, packet transport, and application orchestration still need implementation. See [ARCHITECTURE.md](ARCHITECTURE.md) for the detailed checklist.
+Run the display unit test on the host:
+
+```bash
+gcc -std=c11 -Wall -Wextra -Werror \
+  -Itests/host -Iapp/Inc -IDrivers/SSD1306/Inc \
+  tests/test_display.c app/Src/display.c \
+  Drivers/SSD1306/Src/ssd1306_gfx.c Drivers/SSD1306/Src/fonts.c \
+  -o /tmp/test_display && /tmp/test_display
+```
 
 ## Build System
 

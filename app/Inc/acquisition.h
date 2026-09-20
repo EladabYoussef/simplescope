@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stm32f4xx_hal_adc.h>
+#include <stm32f4xx_hal.h>
 #include "config.h"
 
 extern volatile uint16_t adc_buffer[N_CHANNELS * SAMPLES_PER_CHANNEL];

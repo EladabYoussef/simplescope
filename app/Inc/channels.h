@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
-#include "stm32f407xx.h"
+#include "stm32f4xx_hal.h"
 #include "config.h"
 
 extern volatile uint32_t active_channel_flag;
